@@ -64,6 +64,18 @@ a {
   border-color: var(--rule);
 }
 
+@media (max-width: 639px) {
+  :root {
+    --background: #fffdf9;
+    --paper: #fffdf9;
+    --rule: #cfc8bb;
+  }
+
+  .editorial-container {
+    padding-inline: 1rem;
+  }
+}
+
 .article-prose {
   color: var(--foreground);
   font-size: clamp(1.05rem, 1rem + 0.2vw, 1.22rem);

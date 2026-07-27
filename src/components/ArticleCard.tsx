@@ -46,20 +46,31 @@ export function ArticleCard({ article, lead = false }: ArticleCardProps) {
       : null;
 
   const articleClass = lead
-    ? "grid gap-6 md:grid-cols-[1.15fr_0.85fr]"
-    : "flex h-full flex-col";
+    ? "grid border-b thin-rule pb-7 sm:border-b-0 sm:pb-0 md:grid-cols-[1.15fr_0.85fr] md:gap-6"
+    : "grid h-full grid-cols-[minmax(0,1fr)_6.75rem] gap-x-4 border-b thin-rule pb-5 sm:flex sm:flex-col sm:border-b-0 sm:pb-0";
   const textBlockClass = lead
-    ? "block border-t thin-rule pt-4 md:pt-0"
-    : "flex flex-col border-t thin-rule pt-4";
+    ? "block border-t thin-rule pt-4 md:col-start-1 md:row-span-2 md:pt-0"
+    : "min-w-0 sm:flex sm:flex-col sm:border-t sm:pt-4";
   const eyebrowClass = lead
     ? "font-ui text-xs uppercase tracking-[0.16em] text-[var(--accent)]"
-    : "font-ui min-h-8 text-xs uppercase tracking-[0.16em] text-[var(--accent)]";
+    : "font-ui mb-2 text-[0.68rem] uppercase tracking-[0.16em] text-[var(--accent)] sm:mb-0 sm:min-h-8 sm:text-xs";
   const titleClass = `mt-3 font-headline font-semibold leading-[1.04] ${
-    lead ? "text-4xl sm:text-6xl" : "text-2xl sm:min-h-[7.8rem] sm:text-3xl"
+    lead
+      ? "text-[2.65rem] sm:text-6xl"
+      : "mt-0 text-[1.45rem] sm:mt-3 sm:min-h-[7.8rem] sm:text-3xl"
   }`;
   const subtitleClass = lead
     ? "mt-3 text-lg leading-7 text-[var(--muted)]"
-    : "mt-3 text-lg leading-7 text-[var(--muted)] sm:min-h-[5.25rem]";
+    : "mt-2 text-base leading-6 text-[var(--muted)] sm:mt-3 sm:min-h-[5.25rem] sm:text-lg sm:leading-7";
+  const mediaClass = lead
+    ? "mt-5 md:col-start-2 md:row-start-1 md:mt-0"
+    : "col-start-2 row-start-1 self-start sm:col-auto sm:row-auto sm:mt-4 sm:self-auto";
+  const imageClass = lead
+    ? "relative aspect-[4/3] w-full overflow-hidden bg-[var(--soft)]"
+    : "relative aspect-square w-full overflow-hidden bg-[var(--soft)] sm:aspect-[4/3]";
+  const metaClass = lead
+    ? "mt-4 font-ui text-xs uppercase tracking-[0.14em] text-[var(--muted)] md:col-start-2 md:row-start-2"
+    : "col-start-1 row-start-2 mt-3 font-ui text-[0.68rem] uppercase leading-5 tracking-[0.12em] text-[var(--muted)] sm:mt-4 sm:text-xs sm:tracking-[0.14em]";
 
   return (
     <article className={articleClass}>
@@ -85,11 +96,8 @@ export function ArticleCard({ article, lead = false }: ArticleCardProps) {
           </p>
         )}
       </Link>
-      <div className={lead ? "border-t thin-rule pt-4 md:pt-0" : "mt-4"}>
-        <div
-          className="relative aspect-[4/3] w-full overflow-hidden bg-[var(--soft)]"
-          data-article-image
-        >
+      <div className={mediaClass}>
+        <div className={imageClass} data-article-image>
           {image?.url ? (
             <Image
               alt={image.altText || ""}
@@ -98,7 +106,7 @@ export function ArticleCard({ article, lead = false }: ArticleCardProps) {
               sizes={
                 lead
                   ? "(min-width: 768px) 45vw, 100vw"
-                  : "(min-width: 768px) 33vw, 100vw"
+                  : "(max-width: 639px) 108px, (min-width: 768px) 33vw, 100vw"
               }
               src={image.url}
             />
@@ -110,7 +118,9 @@ export function ArticleCard({ article, lead = false }: ArticleCardProps) {
             </div>
           )}
         </div>
-        <p className="mt-4 font-ui text-xs uppercase tracking-[0.14em] text-[var(--muted)]">
+      </div>
+      <div className={metaClass}>
+        <p>
           {renderPublicByline(
             article.publicByline as never,
             article.authorshipType,
@@ -118,7 +128,7 @@ export function ArticleCard({ article, lead = false }: ArticleCardProps) {
           / {date} / {readingTime(article.body)} min read
         </p>
         {article.verificationIndicators?.length ? (
-          <p className="mt-2 font-ui text-xs font-semibold uppercase tracking-[0.14em] text-[var(--success)]">
+          <p className="mt-2 font-semibold text-[var(--success)]">
             Verified contributor
           </p>
         ) : null}

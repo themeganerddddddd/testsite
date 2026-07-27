@@ -31,11 +31,11 @@ export default async function HomePage() {
     : topics;
 
   return (
-    <div className="editorial-container py-12">
+    <div className="editorial-container py-7 sm:py-12">
       {settings.announcement?.visible && settings.announcement.text ? (
         <Link
           href={settings.announcement.url || "/latest"}
-          className="mb-8 block border-y thin-rule py-3 text-center font-ui text-sm uppercase tracking-[0.14em] text-[var(--accent)]"
+          className="mb-6 block border-y thin-rule py-3 text-center font-ui text-xs uppercase tracking-[0.14em] text-[var(--accent)] sm:mb-8 sm:text-sm"
         >
           {settings.announcement.text}
         </Link>
@@ -48,21 +48,21 @@ export default async function HomePage() {
         {lead ? <ArticleCard article={lead} lead /> : null}
       </section>
 
-      <section className="mt-14" aria-labelledby="recent-heading">
-        <div className="mb-5 border-b thin-rule pb-3">
+      <section className="mt-9 sm:mt-14" aria-labelledby="recent-heading">
+        <div className="mb-4 border-y thin-rule py-2 sm:mb-5 sm:border-b sm:border-t-0 sm:pb-3 sm:pt-0">
           <Link
             href="/latest"
             className="inline-block hover:text-[var(--accent)]"
           >
             <h2
               id="recent-heading"
-              className="font-ui text-sm uppercase tracking-[0.18em]"
+              className="font-ui text-xs font-semibold uppercase tracking-[0.18em] sm:text-sm"
             >
               Recent Articles
             </h2>
           </Link>
         </div>
-        <div className="grid gap-8 md:grid-cols-3">
+        <div className="grid gap-5 sm:gap-8 md:grid-cols-3">
           {recent.map((article) => (
             <ArticleCard key={article.id} article={article} />
           ))}
@@ -70,20 +70,20 @@ export default async function HomePage() {
       </section>
 
       <section
-        className="mt-16 bg-[var(--panel)] py-10"
+        className="-mx-4 mt-12 bg-[var(--panel)] px-4 py-8 sm:mx-0 sm:mt-16 sm:px-0 sm:py-10"
         aria-labelledby="inside-work-heading"
       >
         <div className="mx-auto max-w-5xl px-5">
           <h2
             id="inside-work-heading"
-            className="font-headline text-4xl font-semibold"
+            className="border-y thin-rule py-2 font-ui text-xs font-semibold uppercase tracking-[0.18em] sm:border-0 sm:py-0 sm:font-headline sm:text-4xl sm:normal-case sm:tracking-normal"
           >
             Inside Work
           </h2>
-          <p className="mt-2 max-w-2xl text-lg text-[var(--muted)]">
+          <p className="mt-3 max-w-2xl text-base leading-6 text-[var(--muted)] sm:mt-2 sm:text-lg">
             Verified accounts from the people carrying out the work.
           </p>
-          <div className="mt-8 grid gap-8 md:grid-cols-3">
+          <div className="mt-6 grid gap-5 sm:mt-8 sm:gap-8 md:grid-cols-3">
             {insideWork.map((article) => (
               <ArticleCard key={article.id} article={article} />
             ))}
@@ -91,9 +91,9 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <section className="mt-16 grid gap-10 md:grid-cols-[0.9fr_1.1fr]">
+      <section className="mt-12 grid gap-7 border-t thin-rule pt-7 sm:mt-16 sm:gap-10 sm:border-t-0 sm:pt-0 md:grid-cols-[0.9fr_1.1fr]">
         <div>
-          <h2 className="font-headline text-4xl font-semibold">
+          <h2 className="font-headline text-3xl font-semibold sm:text-4xl">
             Explore by topic
           </h2>
           <p className="mt-3 text-lg text-[var(--muted)]">
@@ -118,10 +118,10 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <section className="mt-16" aria-labelledby="essential-heading">
+      <section className="mt-12 sm:mt-16" aria-labelledby="essential-heading">
         <h2
           id="essential-heading"
-          className="border-b thin-rule pb-3 font-ui text-sm uppercase tracking-[0.18em]"
+          className="border-y thin-rule py-2 font-ui text-xs font-semibold uppercase tracking-[0.18em] sm:border-b sm:border-t-0 sm:pb-3 sm:pt-0 sm:text-sm"
         >
           Essential Reading
         </h2>
@@ -142,9 +142,9 @@ export default async function HomePage() {
 
       <section
         id="newsletter"
-        className="mt-16 border-y thin-rule py-10 text-center"
+        className="mt-12 border-y thin-rule py-9 text-center sm:mt-16 sm:py-10"
       >
-        <h2 className="font-headline text-4xl font-semibold">
+        <h2 className="font-headline text-3xl font-semibold sm:text-4xl">
           {settings.newsletterCopy?.heading || "Read the view from inside."}
         </h2>
         <p className="mx-auto mt-3 max-w-2xl text-lg text-[var(--muted)]">
