@@ -128,6 +128,20 @@ test("anonymous occupational byline and verification note render correctly", asy
   await expect(page.getByText("About the author")).toBeVisible();
 });
 
+test("about page explains the Publius name and insider accounts", async ({
+  page,
+}) => {
+  await page.goto("/about", { waitUntil: "domcontentloaded" });
+  await expect(
+    page.getByRole("heading", { name: "Why Publius" }),
+  ).toBeVisible();
+  await expect(page.getByText("Alexander Hamilton")).toBeVisible();
+  await expect(page.getByText("Why Insider Accounts Matter")).toBeVisible();
+  await expect(
+    page.getByText("institutions have a better chance to change"),
+  ).toBeVisible();
+});
+
 test("topic pages show published articles", async ({ page }) => {
   await page.goto("/topics/work-and-management", {
     waitUntil: "domcontentloaded",

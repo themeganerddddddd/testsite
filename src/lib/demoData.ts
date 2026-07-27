@@ -539,12 +539,22 @@ export const demoPages = [
     contentBlocks: [
       {
         blockType: "textSection",
-        body: "Publius publishes verified perspectives from inside institutions and welcomes named and anonymous contributors. We focus on work that helps readers understand how institutions actually operate.",
+        body: "The name Publius nods to the pen name used by Alexander Hamilton, James Madison, and John Jay when they argued for the Constitution in The Federalist Papers. It is a reminder that public institutions are often improved by serious arguments made with care, evidence, and enough protection for people to speak honestly.",
+        heading: "Why Publius",
+      },
+      {
+        blockType: "textSection",
+        body: "Publius publishes verified perspectives from inside institutions and welcomes named and anonymous contributors. We focus on work that helps readers understand how systems actually operate: the incentives, workarounds, bottlenecks, and quiet decisions that rarely fit into official statements.",
         heading: "What Publius Publishes",
+      },
+      {
+        blockType: "textSection",
+        body: "Insiders often understand problems before anyone else can see them clearly. When people with firsthand knowledge can give candid feedback without needless exposure, readers get a more accurate picture of what is happening, leaders get information they may not otherwise receive, and institutions have a better chance to change before harm becomes permanent.",
+        heading: "Why Insider Accounts Matter",
       },
     ],
     intro:
-      "Publius publishes verified perspectives from people who understand institutions firsthand.",
+      "Publius publishes verified perspectives from people who understand institutions firsthand and can explain what public life looks like from inside the work.",
     slug: "about",
     template: "standard",
     title: "About",

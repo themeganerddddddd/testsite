@@ -26,13 +26,18 @@ type ArticleCardProps = {
     verificationIndicators?: string[] | null;
   };
   lead?: boolean;
+  showMobileImage?: boolean;
 };
 
 function topicLabel(topic: ArticleCardProps["article"]["primaryTopic"]) {
   return typeof topic === "object" && topic ? topic.name : null;
 }
 
-export function ArticleCard({ article, lead = false }: ArticleCardProps) {
+export function ArticleCard({
+  article,
+  lead = false,
+  showMobileImage = true,
+}: ArticleCardProps) {
   const date = article.publicationDate
     ? new Intl.DateTimeFormat("en", {
         day: "numeric",
@@ -47,7 +52,9 @@ export function ArticleCard({ article, lead = false }: ArticleCardProps) {
 
   const articleClass = lead
     ? "grid border-b thin-rule pb-7 sm:border-b-0 sm:pb-0 md:grid-cols-[1.15fr_0.85fr] md:gap-6"
-    : "grid h-full grid-cols-[minmax(0,1fr)_6.75rem] gap-x-4 border-b thin-rule pb-5 sm:flex sm:flex-col sm:border-b-0 sm:pb-0";
+    : showMobileImage
+      ? "grid h-full grid-cols-[minmax(0,1fr)_6.75rem] gap-x-4 border-b thin-rule pb-5 sm:flex sm:flex-col sm:border-b-0 sm:pb-0"
+      : "grid h-full border-b thin-rule pb-5 sm:flex sm:flex-col sm:border-b-0 sm:pb-0";
   const textBlockClass = lead
     ? "block border-t thin-rule pt-4 md:col-start-1 md:row-span-2 md:pt-0"
     : "min-w-0 sm:flex sm:flex-col sm:border-t sm:pt-4";
@@ -64,7 +71,9 @@ export function ArticleCard({ article, lead = false }: ArticleCardProps) {
     : "mt-2 text-base leading-6 text-[var(--muted)] sm:mt-3 sm:min-h-[5.25rem] sm:text-lg sm:leading-7";
   const mediaClass = lead
     ? "mt-5 md:col-start-2 md:row-start-1 md:mt-0"
-    : "col-start-2 row-start-1 self-start sm:col-auto sm:row-auto sm:mt-4 sm:self-auto";
+    : showMobileImage
+      ? "col-start-2 row-start-1 self-start sm:col-auto sm:row-auto sm:mt-4 sm:self-auto"
+      : "hidden sm:col-auto sm:row-auto sm:mt-4 sm:block";
   const imageClass = lead
     ? "relative aspect-[4/3] w-full overflow-hidden bg-[var(--soft)]"
     : "relative aspect-square w-full overflow-hidden bg-[var(--soft)] sm:aspect-[4/3]";
@@ -97,7 +106,11 @@ export function ArticleCard({ article, lead = false }: ArticleCardProps) {
         )}
       </Link>
       <div className={mediaClass}>
-        <div className={imageClass} data-article-image>
+        <div
+          className={imageClass}
+          data-article-image
+          data-mobile-image={showMobileImage ? "visible" : "hidden"}
+        >
           {image?.url ? (
             <Image
               alt={image.altText || ""}

@@ -64,7 +64,11 @@ export default async function HomePage() {
         </div>
         <div className="grid gap-5 sm:gap-8 md:grid-cols-3">
           {recent.map((article) => (
-            <ArticleCard key={article.id} article={article} />
+            <ArticleCard
+              key={article.id}
+              article={article}
+              showMobileImage={false}
+            />
           ))}
         </div>
       </section>
@@ -84,23 +88,36 @@ export default async function HomePage() {
             Verified accounts from the people carrying out the work.
           </p>
           <div className="mt-6 grid gap-5 sm:mt-8 sm:gap-8 md:grid-cols-3">
-            {insideWork.map((article) => (
-              <ArticleCard key={article.id} article={article} />
+            {insideWork.map((article, index) => (
+              <ArticleCard
+                key={article.id}
+                article={article}
+                showMobileImage={index === 0}
+              />
             ))}
           </div>
         </div>
       </section>
 
-      <section className="mt-12 grid gap-7 border-t thin-rule pt-7 sm:mt-16 sm:gap-10 sm:border-t-0 sm:pt-0 md:grid-cols-[0.9fr_1.1fr]">
-        <div>
-          <h2 className="font-headline text-3xl font-semibold sm:text-4xl">
+      <section
+        className="mt-12 grid gap-7 border-t thin-rule pt-7 sm:mt-16 sm:gap-10 sm:border-t-0 sm:pt-0 md:grid-cols-[0.9fr_1.1fr]"
+        aria-labelledby="topics-heading"
+      >
+        <Link href="/topics" className="block hover:text-[var(--accent)]">
+          <h2
+            id="topics-heading"
+            className="font-headline text-3xl font-semibold sm:text-4xl"
+          >
             Explore by topic
           </h2>
-          <p className="mt-3 text-lg text-[var(--muted)]">
+          <p className="mt-2 font-ui text-xs font-semibold uppercase tracking-[0.16em] text-[var(--accent)] sm:hidden">
+            View all topics
+          </p>
+          <p className="mt-3 hidden text-lg text-[var(--muted)] sm:block">
             Broad topic pages, not permanent newsroom sections.
           </p>
-        </div>
-        <div className="grid gap-3 sm:grid-cols-2">
+        </Link>
+        <div className="hidden gap-3 sm:grid sm:grid-cols-2">
           {displayedTopics.slice(0, 6).map((topic) => (
             <Link
               key={topic.id}

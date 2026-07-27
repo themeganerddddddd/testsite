@@ -19,10 +19,43 @@ test("mobile homepage uses a compact newspaper story list", async ({
     .locator('section[aria-labelledby="recent-heading"] article')
     .first();
   await expect(recentCard.locator("h2")).toBeVisible();
-  await expect(recentCard.locator("[data-article-image]")).toBeVisible();
+  await expect(recentCard.locator("[data-article-image]")).toBeHidden();
 
-  const titleBox = await recentCard.locator("h2").boundingBox();
-  const imageBox = await recentCard
+  await expect(
+    page
+      .locator('section[aria-labelledby="topics-heading"]')
+      .getByRole("link", { name: /Explore by topic/ }),
+  ).toHaveAttribute("href", "/topics");
+  const visibleTopicLinks = await page
+    .locator('section[aria-labelledby="topics-heading"]')
+    .locator('a[href^="/topics/"]')
+    .evaluateAll(
+      (links) =>
+        links.filter((link) => {
+          const rect = link.getBoundingClientRect();
+          return rect.width > 0 && rect.height > 0;
+        }).length,
+    );
+  expect(visibleTopicLinks).toBe(0);
+
+  const insideWorkImages = await page
+    .locator('section[aria-labelledby="inside-work-heading"] article')
+    .evaluateAll((articles) =>
+      articles.map((article) => {
+        const image = article.querySelector("[data-article-image]");
+        const rect = image?.getBoundingClientRect();
+
+        return Boolean(rect && rect.width > 0 && rect.height > 0);
+      }),
+    );
+  expect(insideWorkImages.filter(Boolean)).toHaveLength(1);
+  expect(insideWorkImages[0]).toBe(true);
+
+  const firstInsideCard = page
+    .locator('section[aria-labelledby="inside-work-heading"] article')
+    .first();
+  const titleBox = await firstInsideCard.locator("h2").boundingBox();
+  const imageBox = await firstInsideCard
     .locator("[data-article-image]")
     .boundingBox();
 
