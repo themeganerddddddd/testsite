@@ -55,13 +55,17 @@ test("mobile homepage uses a compact newspaper story list", async ({
     .locator('section[aria-labelledby="inside-work-heading"] article')
     .first();
   const titleBox = await firstInsideCard.locator("h2").boundingBox();
+  const subtitleBox = await firstInsideCard
+    .locator("[data-article-subtitle]")
+    .boundingBox();
   const imageBox = await firstInsideCard
     .locator("[data-article-image]")
     .boundingBox();
 
   expect(titleBox).not.toBeNull();
+  expect(subtitleBox).not.toBeNull();
   expect(imageBox).not.toBeNull();
-  expect(imageBox!.x).toBeGreaterThan(titleBox!.x);
-  expect(imageBox!.width).toBeGreaterThanOrEqual(96);
-  expect(imageBox!.width).toBeLessThanOrEqual(124);
+  expect(imageBox!.y).toBeGreaterThan(subtitleBox!.y + subtitleBox!.height);
+  expect(Math.abs(imageBox!.x - titleBox!.x)).toBeLessThan(2);
+  expect(imageBox!.width).toBeGreaterThan(300);
 });

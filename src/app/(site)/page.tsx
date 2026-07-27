@@ -92,6 +92,7 @@ export default async function HomePage() {
               <ArticleCard
                 key={article.id}
                 article={article}
+                mobileImagePlacement={index === 0 ? "belowText" : "thumbnail"}
                 showMobileImage={index === 0}
               />
             ))}
