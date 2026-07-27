@@ -1,0 +1,12 @@
+export { Articles } from "@/collections/Articles";
+export { Corrections } from "@/collections/Corrections";
+export { Media } from "@/collections/Media";
+export { NewsletterSubscriptions } from "@/collections/NewsletterSubscriptions";
+export { Pages } from "@/collections/Pages";
+export { ProtectedSourceFiles } from "@/collections/ProtectedSourceFiles";
+export { ProtectedSources } from "@/collections/ProtectedSources";
+export { PublicBylines } from "@/collections/PublicBylines";
+export { Submissions } from "@/collections/Submissions";
+export { Tags } from "@/collections/Tags";
+export { Topics } from "@/collections/Topics";
+export { Users } from "@/collections/Users";

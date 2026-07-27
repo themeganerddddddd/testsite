@@ -1,0 +1,133 @@
+@import "tailwindcss";
+
+:root {
+  --background: #fbfaf6;
+  --foreground: #171512;
+  --muted: #6f6a61;
+  --rule: #d8d2c4;
+  --accent: #8f2f28;
+  --accent-dark: #63231f;
+  --paper: #fffdf7;
+  --panel: #f6f0e5;
+  --soft: #f1eadb;
+  --success: #335c43;
+  --error: #9a2c2c;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-body: var(--font-body);
+  --font-headline: var(--font-headline);
+  --font-sans: var(--font-sans);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-body), Georgia, serif;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: #ead1ca;
+}
+
+a {
+  color: inherit;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.font-headline {
+  font-family: var(--font-headline), Georgia, serif;
+}
+
+.font-body {
+  font-family: var(--font-body), Georgia, serif;
+}
+
+.font-ui {
+  font-family: var(--font-sans), Arial, sans-serif;
+}
+
+.editorial-container {
+  margin-inline: auto;
+  max-width: 1180px;
+  padding-inline: clamp(1rem, 3vw, 2.5rem);
+}
+
+.thin-rule {
+  border-color: var(--rule);
+}
+
+.article-prose {
+  color: var(--foreground);
+  font-size: clamp(1.05rem, 1rem + 0.2vw, 1.22rem);
+  line-height: 1.82;
+}
+
+.article-prose p {
+  margin-block: 1.2rem;
+}
+
+.article-prose h2,
+.article-prose h3,
+.article-prose h4 {
+  font-family: var(--font-headline), Georgia, serif;
+  font-weight: 650;
+  line-height: 1.14;
+  margin-block: 2rem 0.85rem;
+}
+
+.article-prose h2 {
+  font-size: clamp(1.65rem, 1.25rem + 1.3vw, 2.4rem);
+}
+
+.article-prose h3 {
+  font-size: clamp(1.35rem, 1.1rem + 0.8vw, 1.85rem);
+}
+
+.article-prose blockquote,
+.article-prose .lexical-block-pullQuote {
+  border-left: 3px solid var(--accent);
+  font-family: var(--font-headline), Georgia, serif;
+  font-size: clamp(1.35rem, 1.1rem + 0.8vw, 2rem);
+  line-height: 1.25;
+  margin-block: 2rem;
+  padding-left: 1rem;
+}
+
+.article-prose table {
+  border-collapse: collapse;
+  font-family: var(--font-sans), Arial, sans-serif;
+  font-size: 0.95rem;
+  width: 100%;
+}
+
+.article-prose td,
+.article-prose th {
+  border-bottom: 1px solid var(--rule);
+  padding: 0.65rem;
+  text-align: left;
+}
+
+.article-prose ul,
+.article-prose ol {
+  margin-block: 1.2rem;
+  padding-left: 1.4rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}

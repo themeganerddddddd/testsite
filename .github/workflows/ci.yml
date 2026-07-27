@@ -1,0 +1,68 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:17-alpine
+        env:
+          POSTGRES_DB: publius
+          POSTGRES_PASSWORD: publius
+          POSTGRES_USER: publius
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U publius -d publius"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    env:
+      DATABASE_URL: postgres://publius:publius@localhost:5432/publius
+      NEXT_PUBLIC_SITE_URL: http://localhost:3000
+      PAYLOAD_SECRET: ci-publius-secret-at-least-thirty-two-characters
+      SEED_OWNER_EMAIL: owner@publius.local
+      SEED_OWNER_NAME: Publius Owner
+      SEED_OWNER_PASSWORD: ci-local-owner-password-change-me
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 11.9.0
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Generate Payload artifacts
+        run: |
+          pnpm payload:types
+          pnpm payload:importmap
+
+      - name: Typecheck
+        run: pnpm typecheck
+
+      - name: Lint
+        run: pnpm lint
+
+      - name: Unit tests
+        run: pnpm test
+
+      - name: Build
+        run: pnpm build
